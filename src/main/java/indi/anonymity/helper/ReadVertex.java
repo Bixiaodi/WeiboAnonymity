@@ -23,20 +23,18 @@ public class ReadVertex {
     private final String DESCRIPTION = "description";
     private final String EDU_INFO = "eduInfo";
     private final String USER_TAG = "userTag";
+    private final String CODE_8 = "simhash8";
+    private final String CODE_16 = "simhash16";
+    private final String CODE_32 = "simhash32";
+    private final String CODE_64 = "simhash64";
 
     public ReadVertex(Connection connection) {
         this.connection = connection;
     }
 
-    public ReadVertex(int count) {
+    public ReadVertex(int count, Connection connection) {
         this.count = count;
-        DatabaseConnector connector = new DatabaseConnector();
-        try {
-            connector.connect();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        this.connection = connector.getConnection();
+        this.connection = connection;
     }
 
     public Vertex fillProperty(ResultSet rs) {
@@ -50,6 +48,10 @@ public class ReadVertex {
             v.setUserName(rs.getString(USER_TAG));
             v.setDescription(rs.getString(DESCRIPTION));
             v.setEducationInformation(rs.getString(EDU_INFO));
+            v.setCode8(rs.getString(CODE_8));
+            v.setCode16(rs.getString(CODE_16));
+            v.setCode32(rs.getString(CODE_32));
+            v.setCode64(rs.getString(CODE_64));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -72,20 +74,11 @@ public class ReadVertex {
         return v;
     }
 
-    public ArrayList<Vertex> readRandomly() {
-        ArrayList<Vertex> ret = new ArrayList<>();
-        String sql = "select * from user_info where id = ?";
-        try {
-            PreparedStatement pstmt = connection.prepareCall(sql);
-            for (int i = 0; i < count; i++) {
-                Random random = new Random();
-                int id = random.nextInt(Vertex.TOTAL + 1);
-                ret.add(readById(id));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return ret;
+    public Vertex readRandomly() {
+        Random random = new Random();
+        int id = random.nextInt(Vertex.TOTAL + 1);
+        Vertex v = readById(id);
+        return v;
     }
 
     //    private final String ID = "id";

@@ -9,5 +9,4 @@ package indi.anonymity.algorithm;
  */
 public class DynamicAnonymity {
 
-
 }
