@@ -5,9 +5,13 @@ package indi.anonymity.helper;
  */
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 import javax.swing.*;
 
+import indi.anonymity.elements.Vertex;
 import org.jgraph.JGraph;
 import org.jgraph.graph.AttributeMap;
 import org.jgraph.graph.DefaultGraphCell;
@@ -23,8 +27,13 @@ public class Visualize extends JApplet{
     private static final Color DEFAULT_BG_COLOR = Color.decode("#F6FBFF");
     private static final Dimension DEFAULT_SIZE = new Dimension(530, 320);
 
-    //
     private JGraphModelAdapter<String, DefaultEdge> jgAdapter;
+    private String file;
+
+    public Visualize(String file) {
+        this.file = file;
+    }
+
 
     @Override
     public void init()
@@ -42,27 +51,23 @@ public class Visualize extends JApplet{
         getContentPane().add(jgraph);
         resize(DEFAULT_SIZE);
 
-        String v1 = "v1";
-        String v2 = "v2";
-        String v3 = "v3";
-        String v4 = "v4";
-
-        // add some sample data (graph manipulated via JGraphT)
-        g.addVertex(v1);
-        g.addVertex(v2);
-        g.addVertex(v3);
-        g.addVertex(v4);
-
-        g.addEdge(v1, v2);
-        g.addEdge(v2, v3);
-        g.addEdge(v3, v1);
-        g.addEdge(v4, v3);
-
-        // position vertices nicely within JGraph component
-        positionVertexAt(v1, 130, 40);
-        positionVertexAt(v2, 60, 200);
-        positionVertexAt(v3, 310, 230);
-        positionVertexAt(v4, 380, 70);
+        File input = new File(file);
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(input);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        int vcount = scanner.nextInt();
+        for(int i = 0; i < vcount; i++) {
+            String v = String.valueOf(scanner.nextInt());
+            g.addVertex(v);
+            positionVertexAt(v, i * 20, i * 30);
+        }
+        int ecount = scanner.nextInt();
+        for(int i = 0; i < ecount; i++) {
+            g.addEdge(String.valueOf(scanner.nextInt()), String.valueOf(scanner.nextInt()));
+        }
 
         // that's all there is to it!...
     }
@@ -117,15 +122,18 @@ public class Visualize extends JApplet{
 
     public static void main(String[] args)
     {
-        Visualize applet = new Visualize();
-        applet.init();
-
-        JFrame frame = new JFrame();
-        frame.getContentPane().add(applet);
-        frame.setTitle("JGraphT Adapter to JGraph Demo");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
+        for(int i = 0; i < 3; i++) {
+            for(int j = 0; j <= i; j++) {
+                Visualize applet = new Visualize(i + "-" + j + ".txt");
+                applet.init();
+                JFrame frame = new JFrame();
+                frame.getContentPane().add(applet);
+                frame.setTitle(i + "-" + j);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.pack();
+                frame.setVisible(true);
+            }
+        }
     }
 
 }

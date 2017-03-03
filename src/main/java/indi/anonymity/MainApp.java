@@ -32,14 +32,14 @@ public class MainApp {
         connector.connect();
         Connection connection = connector.getConnection();
 
-        int initCount = 5, updateCount = 5, round = 3, k = 2;
+        int initCount = 10, updateCount = 3, round = 3, k = 2;
         ReadVertexAndEdge readVAndE = new ReadVertexAndEdge(0, initCount, connection);
         ArrayList<Vertex> originalVetex = readVAndE.updateGraph(new ArrayList<Vertex>(), true);
-        originalVetex = readVAndE.updateGraph(originalVetex, false);
-        DirectedGraph<Vertex, DefaultEdge> originalGraph = readVAndE.addEdges(originalVetex);
-        System.out.println("vertex size() = " + originalGraph.vertexSet().size());
+        DirectedGraph<Vertex, DefaultEdge> originalGraph = readVAndE.addEdges(originalVetex, 0);
+
         DynamicAnonymity dynamicAnonymity = new DynamicAnonymity(connection, round, updateCount);
         dynamicAnonymity.execute(originalGraph, k);
+
         connection.close();
     }
 

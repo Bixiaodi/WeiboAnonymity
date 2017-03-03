@@ -103,7 +103,7 @@ public class ReadVertexAndEdge {
         return ret;
     }
 
-    public DirectedGraph<Vertex, DefaultEdge> addEdges(ArrayList<Vertex> vertexes) {
+    public DirectedGraph<Vertex, DefaultEdge> addEdges(ArrayList<Vertex> vertexes, int curRound) {
         ArrayList<String> vertexIds = new ArrayList<String>() {
             @Override
             public String toString() {
@@ -119,10 +119,12 @@ public class ReadVertexAndEdge {
         };
         HashMap<String, Integer> map = new HashMap<>();
         DirectedGraph<Vertex, DefaultEdge> ret = new DefaultDirectedGraph<>(DefaultEdge.class);
+
         for (int i = 0; i < vertexes.size(); i++) {
             String urlId = vertexes.get(i).getUrlId();
             vertexIds.add(urlId);
             map.put(urlId, i);
+            vertexes.get(i).setRound(curRound);
             ret.addVertex(vertexes.get(i));
         }
         String sql = "SELECT * FROM user_follow uf WHERE uf.userId IN " + vertexIds +
