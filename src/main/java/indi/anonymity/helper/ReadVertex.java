@@ -2,10 +2,7 @@ package indi.anonymity.helper;
 
 import indi.anonymity.elements.Vertex;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -45,7 +42,7 @@ public class ReadVertex {
             v.setUserName(rs.getString(USER_NAME));
             v.setGender(rs.getInt(GENDER));
             v.setLocation(rs.getString(USER_LOC));
-            v.setUserName(rs.getString(USER_TAG));
+            v.setUserTag(rs.getString(USER_TAG));
             v.setDescription(rs.getString(DESCRIPTION));
             v.setEducationInformation(rs.getString(EDU_INFO));
             v.setCode8(rs.getString(CODE_8));
@@ -69,6 +66,9 @@ public class ReadVertex {
                 v = fillProperty(rs);
             }
         } catch (SQLException e) {
+            if(connection == null) {
+                System.out.println("connection is null");
+            }
             e.printStackTrace();
         }
         return v;
@@ -81,29 +81,18 @@ public class ReadVertex {
         return v;
     }
 
-    //    private final String ID = "id";
-//    private final String USER_URL_ID = "userUrlId";
-//    private final String USER_NAME = "userName";
-//    private final String GENDER = "gender";
-//    private final String USER_LOC = "userLoc";
-//    private final String DESCRIPTION = "description";
-//    private final String EDU_INFO = "eduInfo";
-//    private final String USER_TAG = "userTag";
-//    public String combine(Vertex v) {
-//        return "id = " + v.getId() +
-//                " urlId = " + v.getUrlId() +
-//                " name = " + v.getUserName() +
-//                " gender = " + v.getGender() +
-//                " loc = " + v.getLocation() +
-//                " decription　=　" + v.getDescription() +
-//                " userTag = " + v.getUserTag() +
-//                "　eduInfo = " + v.getEducationInformation();
-//    }
-    public String combine(Vertex v) {
-        return " gender = " + v.getGender() +
-                " loc = " + v.getLocation() +
-                " decription　=　" + v.getDescription() +
-                " userTag = " + v.getUserTag() +
-                "　eduInfo = " + v.getEducationInformation();
+    public Vertex readByUserUrl(String userUrl) {
+        Vertex v = new Vertex();
+        String sql = "select * from user_info where userUrl = '" + userUrl + "'";
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            if(rs.next()) {
+                v = fillProperty(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return v;
     }
 }

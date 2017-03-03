@@ -9,7 +9,7 @@ import java.sql.SQLException;
  */
 public class DatabaseConnector {
     private final String DRIVER = "com.mysql.jdbc.Driver";
-    private final String URL = "jdbc:mysql://localhost:3306/WeiboAvaliable";
+    private final String URL = "jdbc:mysql://localhost:3306/Valid";
     private final String USER = "root";
     private final String PASSWORD = "19911109";
     private Connection connection = null;

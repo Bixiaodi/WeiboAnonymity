@@ -1,8 +1,17 @@
 package indi.anonymity;
 
+import indi.anonymity.algorithm.DynamicAnonymity;
+import indi.anonymity.elements.Vertex;
 import indi.anonymity.helper.DatabaseConnector;
+import indi.anonymity.helper.DeleteInvalidEdge;
+import indi.anonymity.helper.ReadVertexAndEdge;
 import org.apache.camel.main.Main;
+import org.jgrapht.DirectedGraph;
+import org.jgrapht.graph.DefaultDirectedGraph;
+import org.jgrapht.graph.DefaultEdge;
 
+import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -19,16 +28,19 @@ public class MainApp {
 //        main.run(args);
 //        DatabaseConnector databaseConnector = new DatabaseConnector();
 //        databaseConnector.connect();
-        String[] s = new String[5];
-        s[0] = "北京,东城区";
-        s[1] = "广西柳州";
-        s[2] = "广西";
-        s[3] = "广东广州";
-        s[4] = "广东,广州";
-        Arrays.sort(s);
-        for(String v: s) {
-            System.out.println(v);
-        }
+        DatabaseConnector connector = new DatabaseConnector();
+        connector.connect();
+        Connection connection = connector.getConnection();
+
+        int initCount = 5, updateCount = 5, round = 3, k = 2;
+        ReadVertexAndEdge readVAndE = new ReadVertexAndEdge(0, initCount, connection);
+        ArrayList<Vertex> originalVetex = readVAndE.updateGraph(new ArrayList<Vertex>(), true);
+        originalVetex = readVAndE.updateGraph(originalVetex, false);
+        DirectedGraph<Vertex, DefaultEdge> originalGraph = readVAndE.addEdges(originalVetex);
+        System.out.println("vertex size() = " + originalGraph.vertexSet().size());
+        DynamicAnonymity dynamicAnonymity = new DynamicAnonymity(connection, round, updateCount);
+        dynamicAnonymity.execute(originalGraph, k);
+        connection.close();
     }
 
 }

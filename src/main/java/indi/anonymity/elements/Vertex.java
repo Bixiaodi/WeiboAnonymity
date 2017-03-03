@@ -17,10 +17,25 @@ public class Vertex {
     private String code16;
     private String code8;
 
+    private String groupId;
+
+
+    private int round;
+
     public static final int TOTAL = 169246;
+//    public static final int TOTAL = 30;
+
 
     public Vertex() {
-
+        this.round = 0;
+    }
+    public Vertex(int id) {
+        this.id = id;
+        this.round = 0;
+    }
+    public Vertex(String urlId) {
+        this.urlId = urlId;
+        this.round = 0;
     }
 
     public Vertex(int id, String urlId, String userName, int gender, String location, String description, String userTag, String educationInformation) {
@@ -32,6 +47,26 @@ public class Vertex {
         this.description = description;
         this.userTag = userTag;
         this.educationInformation = educationInformation;
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
+
+    public void resetGroupId() {
+        this.groupId = "";
+    }
+
+    public int getRound() {
+        return round;
+    }
+
+    public void setRound(int round) {
+        this.round = round;
     }
 
     public int getId() {
@@ -47,7 +82,7 @@ public class Vertex {
     }
 
     public void setUrlId(String urlId) {
-        this.urlId = urlId;
+        this.urlId = urlId == null ? "" : urlId;
     }
 
     public String getUserName() {
@@ -55,7 +90,7 @@ public class Vertex {
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.userName = userName == null ? "" : userName;
     }
 
     public int getGender() {
@@ -71,7 +106,7 @@ public class Vertex {
     }
 
     public void setLocation(String location) {
-        this.location = location;
+        this.location = location == null ? "" : location;
     }
 
     public String getDescription() {
@@ -79,7 +114,7 @@ public class Vertex {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.description = description == null ? "" : description;
     }
 
     public String getUserTag() {
@@ -87,7 +122,7 @@ public class Vertex {
     }
 
     public void setUserTag(String userTag) {
-        this.userTag = userTag;
+        this.userTag = (userTag == null ? "" : userTag);
     }
 
     public String getEducationInformation() {
@@ -95,7 +130,7 @@ public class Vertex {
     }
 
     public void setEducationInformation(String educationInformation) {
-        this.educationInformation = educationInformation;
+        this.educationInformation = educationInformation == null ? "" : educationInformation;
     }
 
     public String getCode64() {
@@ -130,10 +165,14 @@ public class Vertex {
         this.code8 = code8;
     }
 
+//    public boolean equals(Vertex v) {
+//        return (v.id == this.id) || (v.urlId == this.urlId);
+//    }
+
     public String toString() {
-        return gender + " " + location + " " + description + " " + userTag + " " + educationInformation;
+        return id + " " + urlId + " " + gender + " " + location + " " + description + " " + userTag + " " + educationInformation;
     }
     public String[] toArray() {
-        return new String[]{String.valueOf(gender), location, description, userTag, educationInformation};
+        return new String[]{String.valueOf(id), urlId, String.valueOf(gender), location, description, userTag, educationInformation};
     }
 }
