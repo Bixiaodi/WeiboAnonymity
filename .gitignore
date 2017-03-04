@@ -59,6 +59,5 @@ fabric.properties
 log/
 target/
 
-# Experiment data
-*.txt
+
 db/
