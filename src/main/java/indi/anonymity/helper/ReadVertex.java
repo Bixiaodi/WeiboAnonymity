@@ -57,7 +57,7 @@ public class ReadVertex {
 
     public Vertex readById(int id) {
         Vertex v = new Vertex();
-        String sql = "select * from user_info where id = ?";
+        String sql = "SELECT * FROM user_info WHERE id = ?";
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setInt(1, id);
@@ -75,19 +75,16 @@ public class ReadVertex {
     }
 
     public Vertex readRandomly() {
-        Random random = new Random();
-        int id = random.nextInt(Vertex.TOTAL + 1);
-        Vertex v = readById(id);
-        return v;
+        return readById((new Random()).nextInt(Vertex.TOTAL + 1));
     }
 
     public Vertex readByUserUrl(String userUrl) {
         Vertex v = new Vertex();
-        String sql = "select * from user_info where userUrl = '" + userUrl + "'";
+        String sql = "SELECT * FROM user_info WHERE userUrl = '" + userUrl + "'";
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            if(rs.next()) {
+            if (rs.next()) {
                 v = fillProperty(rs);
             }
         } catch (SQLException e) {

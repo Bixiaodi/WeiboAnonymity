@@ -3,16 +3,12 @@ package indi.anonymity;
 import indi.anonymity.algorithm.DynamicAnonymity;
 import indi.anonymity.elements.Vertex;
 import indi.anonymity.helper.DatabaseConnector;
-import indi.anonymity.helper.DeleteInvalidEdge;
-import indi.anonymity.helper.ReadVertexAndEdge;
-import org.apache.camel.main.Main;
+import indi.anonymity.algorithm.GraphUpdate;
 import org.jgrapht.DirectedGraph;
-import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * A Camel Application
@@ -26,16 +22,13 @@ public class MainApp {
 //        Main main = new Main();
 //        main.addRouteBuilder(new MyRouteBuilder());
 //        main.run(args);
-//        DatabaseConnector databaseConnector = new DatabaseConnector();
-//        databaseConnector.connect();
         DatabaseConnector connector = new DatabaseConnector();
         connector.connect();
         Connection connection = connector.getConnection();
 
         int initCount = 10, updateCount = 3, round = 3, k = 2;
-        ReadVertexAndEdge readVAndE = new ReadVertexAndEdge(0, initCount, connection);
-        ArrayList<Vertex> originalVetex = readVAndE.updateGraph(new ArrayList<Vertex>(), true);
-        DirectedGraph<Vertex, DefaultEdge> originalGraph = readVAndE.addEdges(originalVetex, 0);
+        GraphUpdate gu = new GraphUpdate(0, initCount, connection);
+        DirectedGraph<Vertex, DefaultEdge> originalGraph = gu.updateGraph(new ArrayList<>(),0);
 
         DynamicAnonymity dynamicAnonymity = new DynamicAnonymity(connection, round, updateCount);
         dynamicAnonymity.execute(originalGraph, k);

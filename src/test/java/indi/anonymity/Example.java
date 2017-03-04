@@ -1,6 +1,5 @@
 package indi.anonymity;
 
-import indi.anonymity.algorithm.SortVertex;
 import indi.anonymity.elements.Vertex;
 import indi.anonymity.helper.ReadVertex;
 import org.jgrapht.DirectedGraph;

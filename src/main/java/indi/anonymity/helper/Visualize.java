@@ -81,13 +81,11 @@ public class Visualize extends JApplet{
 
         try {
             colorStr = getParameter("bgcolor");
-        } catch (Exception e) {
-        }
+        } catch (Exception e) { }
 
         if (colorStr != null) {
             c = Color.decode(colorStr);
         }
-
         jg.setBackground(c);
     }
 
@@ -112,16 +110,14 @@ public class Visualize extends JApplet{
      */
     private static class ListenableDirectedMultigraph<V, E>
             extends DefaultListenableGraph<V, E>
-            implements DirectedGraph<V, E>
-    {
+            implements DirectedGraph<V, E>  {
         ListenableDirectedMultigraph(Class<E> edgeClass)
         {
             super(new DirectedMultigraph<>(edgeClass));
         }
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args)  {
         for(int i = 0; i < 3; i++) {
             for(int j = 0; j <= i; j++) {
                 Visualize applet = new Visualize(i + "-" + j + ".txt");

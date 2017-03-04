@@ -8,6 +8,7 @@ import java.sql.SQLException;
  * Created by emily on 17/2/14.
  */
 public class DatabaseConnector {
+
     private final String DRIVER = "com.mysql.jdbc.Driver";
     private final String URL = "jdbc:mysql://localhost:3306/Valid";
     private final String USER = "root";
@@ -27,7 +28,7 @@ public class DatabaseConnector {
         return this.connection;
     }
     public void stopConnection() {
-        if(this.connection != null) {
+        if (this.connection != null) {
             try {
                 connection.close();
             } catch (SQLException e) {
@@ -36,4 +37,3 @@ public class DatabaseConnector {
         }
     }
 }
-//数据库操作都放到一个类里面

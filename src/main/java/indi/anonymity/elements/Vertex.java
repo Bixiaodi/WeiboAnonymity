@@ -4,6 +4,7 @@ package indi.anonymity.elements;
  * Created by emily on 17/2/14.
  */
 public class Vertex {
+
     private int id;
     private String urlId;
     private String userName;
@@ -16,15 +17,10 @@ public class Vertex {
     private String code32;
     private String code16;
     private String code8;
-
     private String groupId;
-
-
     private int round;
 
     public static final int TOTAL = 169246;
-//    public static final int TOTAL = 30;
-
 
     public Vertex() {
         this.round = 0;
@@ -32,21 +28,6 @@ public class Vertex {
     public Vertex(int id) {
         this.id = id;
         this.round = 0;
-    }
-    public Vertex(String urlId) {
-        this.urlId = urlId;
-        this.round = 0;
-    }
-
-    public Vertex(int id, String urlId, String userName, int gender, String location, String description, String userTag, String educationInformation) {
-        this.id = id;
-        this.urlId = urlId;
-        this.userName = userName;
-        this.gender = gender;
-        this.location = location;
-        this.description = description;
-        this.userTag = userTag;
-        this.educationInformation = educationInformation;
     }
 
     public String getGroupId() {
@@ -164,10 +145,6 @@ public class Vertex {
     public void setCode8(String code8) {
         this.code8 = code8;
     }
-
-//    public boolean equals(Vertex v) {
-//        return (v.id == this.id) || (v.urlId == this.urlId);
-//    }
 
     public String toString() {
         return id + " " + urlId + " " + gender + " " + location + " " + description + " " + userTag + " " + educationInformation;
