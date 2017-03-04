@@ -7,7 +7,7 @@ import java.util.HashMap;
 /**
  * Created by emily on 17/2/20.
  */
-public class ReadEdge {
+public class ReadEdge implements SQLExecutor {
 
     private final String SOURCE_ID = "userId";
     private final String TARGET_ID = "followUserId";
@@ -16,6 +16,11 @@ public class ReadEdge {
 
     public ReadEdge(Connection connection) {
         this.connection = connection;
+    }
+
+    @Override
+    public Connection getConnection() {
+        return connection;
     }
 
     public ArrayList<String> readEdgeBySource(String source) {
@@ -56,8 +61,5 @@ public class ReadEdge {
         return ret;
     }
 
-    private ResultSet executeSQL(String sql) throws SQLException {
-        Statement stmt = connection.createStatement();
-        return stmt.executeQuery(sql);
-    }
+
 }

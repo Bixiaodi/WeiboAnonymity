@@ -3,9 +3,8 @@ package indi.anonymity.elements;
 /**
  * Created by emily on 17/2/14.
  */
-public class Vertex {
+public class Vertex extends BaseVertex {
 
-    private int id;
     private String urlId;
     private String userName;
     private int gender;
@@ -18,17 +17,8 @@ public class Vertex {
     private String code16;
     private String code8;
     private String groupId;
-    private int round;
 
     public static final int TOTAL = 169246;
-
-    public Vertex() {
-        this.round = 0;
-    }
-    public Vertex(int id) {
-        this.id = id;
-        this.round = 0;
-    }
 
     public String getGroupId() {
         return groupId;
@@ -40,22 +30,6 @@ public class Vertex {
 
     public void resetGroupId() {
         this.groupId = "";
-    }
-
-    public int getRound() {
-        return round;
-    }
-
-    public void setRound(int round) {
-        this.round = round;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getUrlId() {
