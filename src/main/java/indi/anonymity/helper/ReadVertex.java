@@ -9,7 +9,7 @@ import java.util.Random;
 /**
  * Created by emily on 17/2/15.
  */
-public class ReadVertex {
+public class ReadVertex implements SQLExecutor {
     private int count;
     private Connection connection;
     private final String ID = "id";
@@ -32,6 +32,11 @@ public class ReadVertex {
     public ReadVertex(int count, Connection connection) {
         this.count = count;
         this.connection = connection;
+    }
+
+    @Override
+    public Connection getConnection() {
+        return connection;
     }
 
     public Vertex fillProperty(ResultSet rs) {
@@ -82,14 +87,11 @@ public class ReadVertex {
         Vertex v = new Vertex();
         String sql = "SELECT * FROM user_info WHERE userUrl = '" + userUrl + "'";
         try {
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+            ResultSet rs = executeSQL(sql);
             if (rs.next()) {
                 v = fillProperty(rs);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } catch (SQLException e) { e.printStackTrace(); }
         return v;
     }
 }
