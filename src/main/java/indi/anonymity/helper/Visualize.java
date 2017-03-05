@@ -117,10 +117,21 @@ public class Visualize extends JApplet{
         }
     }
 
+
     public static void main(String[] args)  {
         for(int i = 0; i < 3; i++) {
+            Visualize applet = new Visualize("original/" + i + ".txt");
+            applet.init();
+            JFrame frame = new JFrame();
+            frame.getContentPane().add(applet);
+            frame.setTitle("original " + i);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.pack();
+            frame.setVisible(true);
+        }
+        for(int i = 0; i < 3; i++) {
             for(int j = 0; j <= i; j++) {
-                Visualize applet = new Visualize(i + "-" + j + ".txt");
+                Visualize applet = new Visualize("result/" + i + "-" + j + ".txt");
                 applet.init();
                 JFrame frame = new JFrame();
                 frame.getContentPane().add(applet);

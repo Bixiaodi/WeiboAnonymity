@@ -5,6 +5,9 @@ package indi.anonymity.algorithm;
  */
 
 import indi.anonymity.elements.Vertex;
+import indi.anonymity.experiment.BasicComputation;
+import indi.anonymity.helper.JGraph2Gephi;
+import org.gephi.graph.api.Graph;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
@@ -59,12 +62,46 @@ public class DynamicAnonymity {
                 DirectedGraph<Vertex, DefaultEdge> supplementGraph = generateSupplementGraph(graphs.get(i), i);
                 // 执行匿名过程,迭代
                 ArrayList<DirectedGraph<Vertex, DefaultEdge>> anonymousGraphs = iteration(original, supplementGraph, i, k);
-                System.out.println("in round " + i + " : " + anonymousGraphs.size());
                 recordAnonymityResult(i, anonymousGraphs);
+                doExperiment(anonymousGraphs, i);
             }
+        }
+        recordOriginalGraph(graphs);
+        doExperiment(graphs, -1);
+    }
+
+    //For experiment
+    public void doExperiment(ArrayList<DirectedGraph<Vertex, DefaultEdge>> originalGraph, int curRound) {
+        System.out.println("in round " + curRound);
+        JGraph2Gephi j2g = new JGraph2Gephi();
+        for(int i = 0; i < originalGraph.size(); i++) {
+            Graph g = j2g.transform(originalGraph.get(i));
+            double apl = BasicComputation.averagePathLength(g);
+            System.out.println(apl);
+//            double ce = BasicComputation.undirectedClusterCoefficient(originalGraph.get(i));
+//            System.out.println(ce);
         }
     }
 
+
+
+
+    private void recordOriginalGraph(ArrayList<DirectedGraph<Vertex, DefaultEdge>> graphs) throws FileNotFoundException {
+        String file = "original/";
+        for(int i = 0; i < graphs.size(); i++) {
+            File outputFile = new File(file + i + ".txt");
+            PrintWriter output = new PrintWriter(outputFile);
+            output.println(graphs.get(i).vertexSet().size());
+            for(Vertex v: graphs.get(i).vertexSet()) {
+                output.println(v.getId());
+            }
+            output.println(graphs.get(i).edgeSet().size());
+            for(DefaultEdge e: graphs.get(i).edgeSet()) {
+                output.println(graphs.get(i).getEdgeSource(e).getId() + " " + graphs.get(i).getEdgeTarget(e).getId());
+            }
+            output.close();
+        }
+    }
     // update graph, correct
     private DirectedGraph<Vertex, DefaultEdge> nextRound(ArrayList<Vertex> oldVertex, int curRound) {
         return new GraphUpdate(updateCount, updateCount, connection).updateGraph(oldVertex, curRound);
@@ -158,7 +195,8 @@ public class DynamicAnonymity {
     private void recordAnonymityResult(int curRound, ArrayList<DirectedGraph<Vertex, DefaultEdge>> graphs)
             throws FileNotFoundException {
         for (int i = graphs.size() - 1, j = 0; i >= 0; i--, j++) {
-            File file = new File(curRound + "-" + j + ".txt");
+            String path = "result/";
+            File file = new File(path + curRound + "-" + j + ".txt");
             PrintWriter output = new PrintWriter(file);
             output.println(graphs.get(i).vertexSet().size());
             for (Vertex v : graphs.get(i).vertexSet()) {

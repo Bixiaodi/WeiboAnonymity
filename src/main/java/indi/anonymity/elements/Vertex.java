@@ -126,4 +126,8 @@ public class Vertex extends BaseVertex {
     public String[] toArray() {
         return new String[]{String.valueOf(id), urlId, String.valueOf(gender), location, description, userTag, educationInformation};
     }
+
+    public boolean equals(Vertex vertex) {
+        return this.getId() == vertex.getId();
+    }
 }

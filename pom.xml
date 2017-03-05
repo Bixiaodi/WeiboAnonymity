@@ -76,6 +76,34 @@
       <artifactId>jgrapht-ext</artifactId>
       <version>1.0.1</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.gephi/statistics-api -->
+    <dependency>
+      <groupId>org.gephi</groupId>
+      <artifactId>statistics-api</artifactId>
+      <version>0.9.1</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.gephi/graph-api -->
+    <dependency>
+      <groupId>org.gephi</groupId>
+      <artifactId>graph-api</artifactId>
+      <version>0.9.1</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.gephi/statistics-plugin -->
+    <dependency>
+      <groupId>org.gephi</groupId>
+      <artifactId>statistics-plugin</artifactId>
+      <version>0.9.1</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.gephi/statistics-plugin-ui -->
+    <dependency>
+      <groupId>org.gephi</groupId>
+      <artifactId>statistics-plugin-ui</artifactId>
+      <version>0.9.1</version>
+    </dependency>
+
+
+
+
 
 
     <!-- testing -->
