@@ -30,10 +30,12 @@ public interface JGraph2GephiAdapter {
             }
         }
         for (DefaultEdge e: g.edgeSet()) {
-            Edge edge = graphModel.factory().newEdge(
-                    map.get(g.getEdgeSource(e)),
-                    map.get(g.getEdgeTarget(e)));
-            directedGraph.addEdge(edge);
+            if(map.get(g.getEdgeSource(e)) != null && map.get(g.getEdgeTarget(e)) != null) {
+                Edge edge = graphModel.factory().newEdge(
+                        map.get(g.getEdgeSource(e)),
+                        map.get(g.getEdgeTarget(e)));
+                directedGraph.addEdge(edge);
+            }
         }
         return graphModel.getDirectedGraph();
     }

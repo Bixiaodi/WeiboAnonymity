@@ -13,9 +13,7 @@ import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DirectedGraphUnion;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.sql.Connection;
 import java.text.Collator;
 import java.util.*;
@@ -33,21 +31,24 @@ public class DynamicAnonymity implements JGraph2GephiAdapter {
     private Connection connection;
     private int round;
     private int updateCount;
+    private int initCount;
+    private String dataFileName;
 
-    public DynamicAnonymity(Connection connection, int round, int updateCount) {
+    public DynamicAnonymity(Connection connection, int round, int updateCount, String dataFileName) {
         this.connection = connection;
         this.round = round;
         this.updateCount = updateCount;
+        this.initCount = initCount;
         adjacentEdge = new HashMap<>();
         adjacentVertex = new HashMap<>();
         adjacentEdgeDec = new HashMap<>();
         adjacentVertexDec = new HashMap<>();
+        this.dataFileName = dataFileName;
     }
 
-    public void execute(DirectedGraph<Vertex, DefaultEdge> original, int k) throws FileNotFoundException {
+    public void execute(DirectedGraph<Vertex, DefaultEdge> original, int k) throws IOException {
         ArrayList<DirectedGraph<Vertex, DefaultEdge>> graphs = new ArrayList<>();
         for (int i = 0; i < this.round; i++) {
-            System.out.println("------round------" + i);
             if (i == 0) {
                 //直接匿名,没有supplement graph
                 graphs.add(original);
@@ -71,15 +72,24 @@ public class DynamicAnonymity implements JGraph2GephiAdapter {
     }
 
     // For experiment
-    public void doExperiment(ArrayList<DirectedGraph<Vertex, DefaultEdge>> originalGraph, int curRound) {
+    public void doExperiment(ArrayList<DirectedGraph<Vertex, DefaultEdge>> originalGraph, int curRound) throws IOException {
+
+        BufferedWriter output = new BufferedWriter(new FileWriter(dataFileName, true));
+        output.write("in round " + curRound + "\n");
         System.out.println("in round " + curRound);
         for(int i = 0; i < originalGraph.size(); i++) {
             Graph g = transform(originalGraph.get(i));
+            double ace = BasicComputation.computeClusterCoefficient(g);
             double apl = BasicComputation.averagePathLength(g);
-            System.out.println(apl);
-//            double ce = BasicComputation.undirectedClusterCoefficient(originalGraph.get(i));
-//            System.out.println(ce);
+            double[] distance = BasicComputation.distance(g);
+            System.out.println("average cluster coefficient : " + ace);
+            System.out.println("average path length : " + apl);
+            System.out.println("betweenness = " + distance[0] + " closeness = " + distance[1] + " harmonicCloseness = " + distance[2] + " eccentricity = " + distance[3]);
+            output.write("average cluster coefficient : " + ace + "\n");
+            output.write("average path length : " + apl + "\n");
+            output.write("betweenness = " + distance[0] + " closeness = " + distance[1] + " harmonicCloseness = " + distance[2] + " eccentricity = " + distance[3]  + "\n");
         }
+        output.close();
     }
 
 

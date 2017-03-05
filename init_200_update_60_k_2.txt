@@ -1,0 +1,45 @@
+in round 1
+average cluster coefficient : 0.003039201255887747
+average path length : 2.8343949044585988
+betweenness = 8.861538461538462 closeness = 0.46664490770068484 harmonicCloseness = 0.5569684644313765 eccentricity = 3.6346153846153846
+average cluster coefficient : 0.0
+average path length : 1.1333333333333333
+betweenness = 0.038461538461538464 closeness = 0.23717948717948717 harmonicCloseness = 0.2403846153846154 eccentricity = 0.28846153846153844
+in round 2
+average cluster coefficient : 0.009450316429138184
+average path length : 5.302367014507508
+betweenness = 53.15723270440252 closeness = 0.358304093385794 harmonicCloseness = 0.43855583489708705 eccentricity = 7.29874213836478
+average cluster coefficient : 6.726373103447258E-4
+average path length : 2.2142857142857144
+betweenness = 2.3106796116504853 closeness = 0.33307905686546463 harmonicCloseness = 0.3911528300640645 eccentricity = 1.8155339805825244
+average cluster coefficient : 0.0
+average path length : 1.1333333333333333
+betweenness = 0.038461538461538464 closeness = 0.23717948717948717 harmonicCloseness = 0.2403846153846154 eccentricity = 0.28846153846153844
+in round 3
+average cluster coefficient : 0.016180016100406647
+average path length : 5.0588105239885035
+betweenness = 49.2171581769437 closeness = 0.365217389131553 harmonicCloseness = 0.44557758585108725 eccentricity = 6.8766756032171585
+average cluster coefficient : 0.004055929370224476
+average path length : 2.0853242320819114
+betweenness = 2.0516129032258066 closeness = 0.40270116979794396 harmonicCloseness = 0.4573377587594177 eccentricity = 1.7419354838709677
+average cluster coefficient : 6.726373103447258E-4
+average path length : 2.2142857142857144
+betweenness = 2.3106796116504853 closeness = 0.33307905686546463 harmonicCloseness = 0.3911528300640645 eccentricity = 1.8155339805825244
+average cluster coefficient : 0.0
+average path length : 1.1333333333333333
+betweenness = 0.038461538461538464 closeness = 0.23717948717948717 harmonicCloseness = 0.2403846153846154 eccentricity = 0.28846153846153844
+in round -1
+average cluster coefficient : 1.1754169827327132E-4
+average path length : 2.692094313453537
+betweenness = 6.1 closeness = 0.48090079365079363 harmonicCloseness = 0.5848208199483497 eccentricity = 3.605
+average cluster coefficient : 0.0
+average path length : 2.214936247723133
+betweenness = 3.206730769230769 closeness = 0.5695398351648351 harmonicCloseness = 0.6545757838391767 eccentricity = 2.639423076923077
+average cluster coefficient : 0.0
+average path length : 2.6920634920634923
+betweenness = 4.912442396313364 closeness = 0.5551166703240435 harmonicCloseness = 0.6320652365742337 eccentricity = 2.903225806451613
+average cluster coefficient : 0.0
+average path length : 1.995893223819302
+betweenness = 2.1651785714285716 closeness = 0.5768282312925169 harmonicCloseness = 0.6478968253968255 eccentricity = 2.174107142857143
+init time: 33818 ms
+execute time: 41226ms

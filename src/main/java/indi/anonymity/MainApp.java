@@ -10,6 +10,9 @@ import indi.anonymity.helper.JGraph2GephiAdapter;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,9 +40,10 @@ public class MainApp implements JGraph2GephiAdapter {
 //        SlidingWindow sw = new SlidingWindow(connection);
 //        DirectedGraph<BaseVertex, DefaultEdge> graph = sw.graphBetweenInterval(0, 23175);
 
-        int initCount = 100, updateCount = 30, round = 4, k = 2;
+        int initCount = 1100, updateCount = 330, round = 4, k = 2;
+        String fileName = "init_" + initCount + "_update_" + updateCount + "_k_" + k + ".txt";
+
         long beginInit = System.currentTimeMillis();
-        System.out.println(beginInit);
         System.out.println("init count - " + initCount  + ", update count - " + updateCount);
         System.out.println("start init graph");
         GraphUpdate gu = new GraphUpdate(0, initCount, connection);
@@ -47,7 +51,7 @@ public class MainApp implements JGraph2GephiAdapter {
         long endInit = System.currentTimeMillis();
         System.out.println("end init graph");
         System.out.println("init time: " + (endInit - beginInit) + " ms");
-        DynamicAnonymity dynamicAnonymity = new DynamicAnonymity(connection, round, updateCount);
+        DynamicAnonymity dynamicAnonymity = new DynamicAnonymity(connection, round, updateCount, fileName);
 
         long beginExecute = System.currentTimeMillis();
         System.out.println("start execute graph");
@@ -56,6 +60,10 @@ public class MainApp implements JGraph2GephiAdapter {
         System.out.println("end execute graph");
         System.out.println("execute time: " + (endExecute - beginExecute) + "ms");
 
+        BufferedWriter output = new BufferedWriter(new FileWriter(fileName, true));
+        output.write("init time: " + (endInit - beginInit) + " ms\n");
+        output.write("execute time: " + (endExecute - beginExecute) + "ms\n");
+        output.close();
         connection.close();
     }
 
