@@ -6,7 +6,7 @@ package indi.anonymity.algorithm;
 
 import indi.anonymity.elements.Vertex;
 import indi.anonymity.experiment.BasicComputation;
-import indi.anonymity.helper.JGraph2Gephi;
+import indi.anonymity.helper.JGraph2GephiAdapter;
 import org.gephi.graph.api.Graph;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
@@ -24,7 +24,7 @@ import java.util.*;
  * 得到当前的结点集合,进行排序,返回一个list
  * 每次读一个结点
  */
-public class DynamicAnonymity {
+public class DynamicAnonymity implements JGraph2GephiAdapter {
 
     private HashMap<Integer, DirectedGraph<Vertex, DefaultEdge>> adjacentEdge;
     private HashMap<Integer, DirectedGraph<Vertex, DefaultEdge>> adjacentEdgeDec;
@@ -70,12 +70,11 @@ public class DynamicAnonymity {
         doExperiment(graphs, -1);
     }
 
-    //For experiment
+    // For experiment
     public void doExperiment(ArrayList<DirectedGraph<Vertex, DefaultEdge>> originalGraph, int curRound) {
         System.out.println("in round " + curRound);
-        JGraph2Gephi j2g = new JGraph2Gephi();
         for(int i = 0; i < originalGraph.size(); i++) {
-            Graph g = j2g.transform(originalGraph.get(i));
+            Graph g = transform(originalGraph.get(i));
             double apl = BasicComputation.averagePathLength(g);
             System.out.println(apl);
 //            double ce = BasicComputation.undirectedClusterCoefficient(originalGraph.get(i));

@@ -33,8 +33,6 @@ public class ReadEmail implements SQLExecutor {
         try {
             ResultSet rs = executeSQL(sql);
             while (rs.next()) {
-                System.out.println(rs.getInt(SOURCE));
-                System.out.println(rs.getInt(TARGET));
                 ret.add(rs.getInt(SOURCE));
                 ret.add(rs.getInt(TARGET));
             }
@@ -53,7 +51,6 @@ public class ReadEmail implements SQLExecutor {
                 ret.get(rs.getInt(SOURCE)).add(rs.getInt(TARGET));
             }
         } catch (SQLException e) { e.printStackTrace(); }
-        System.out.println(ret);
         return ret;
     }
 }
