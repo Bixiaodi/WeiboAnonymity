@@ -201,6 +201,23 @@ public class DynamicAnonymity implements JGraph2GephiAdapter {
         return ret;
     }
 
+//    private void recordAnonymityResult(int curRound, ArrayList<DirectedGraph<Vertex, DefaultEdge>> graphs) throws IOException {
+//            for (int i = graphs.size() - 1, j = 0; i >= 0; i--, j++) {
+//                String path = "result/" + dataFileName + ".txt";
+//                BufferedWriter output = new BufferedWriter(new FileWriter(path, true));
+//                output.write()
+//                output.write(graphs.get(i).vertexSet().size() + "\n");
+//                for (Vertex v : graphs.get(i).vertexSet()) {
+//                    output.write(v.getId() + "\n");
+//                }
+//                output.write(graphs.get(i).edgeSet().size() + "\n");
+//                for (DefaultEdge e : graphs.get(i).edgeSet()) {
+//                    output.write(graphs.get(i).getEdgeSource(e).getId() + " " + graphs.get(i).getEdgeTarget(e).getId() + "\n");
+//                }
+//                output.close();
+//            }
+//    }
+
     private void recordAnonymityResult(int curRound, ArrayList<DirectedGraph<Vertex, DefaultEdge>> graphs)
             throws FileNotFoundException {
         for (int i = graphs.size() - 1, j = 0; i >= 0; i--, j++) {

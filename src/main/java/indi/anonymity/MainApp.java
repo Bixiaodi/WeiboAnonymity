@@ -40,7 +40,7 @@ public class MainApp implements JGraph2GephiAdapter {
 //        SlidingWindow sw = new SlidingWindow(connection);
 //        DirectedGraph<BaseVertex, DefaultEdge> graph = sw.graphBetweenInterval(0, 23175);
 
-        int initCount = 1100, updateCount = 330, round = 4, k = 2;
+        int initCount = 200, updateCount = 60, round = 4, k = 2;
         String fileName = "init_" + initCount + "_update_" + updateCount + "_k_" + k + ".txt";
 
         long beginInit = System.currentTimeMillis();
