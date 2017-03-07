@@ -9,15 +9,19 @@ public class BaseVertex {
 
     protected int id;
     protected int round;
+    protected String groupId;
 
     public BaseVertex() {
         this.id = 0;
         this.round = 0;
+        this.groupId = "";
+
     }
 
     public BaseVertex(int id) {
         this.id = id;
         this.round = 0;
+        this.groupId = "";
     }
 
     public int getId() {
@@ -34,6 +38,14 @@ public class BaseVertex {
 
     public void setRound(int round) {
         this.round = round;
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
     }
 
     @Override

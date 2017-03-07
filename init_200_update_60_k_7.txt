@@ -1,0 +1,23 @@
+round 1
+diff = 7 totalA = 7 totalO = 198
+--------------rate = 0.03535353535353535
+diff = 277 totalA = 277 totalO = 198
+--------------rate = 1.398989898989899
+round 2
+diff = 7 totalA = 7 totalO = 198
+--------------rate = 0.03535353535353535
+diff = 34 totalA = 34 totalO = 198
+--------------rate = 0.1717171717171717
+diff = 356 totalA = 356 totalO = 202
+--------------rate = 1.7623762376237624
+round 3
+diff = 7 totalA = 7 totalO = 198
+--------------rate = 0.03535353535353535
+diff = 34 totalA = 34 totalO = 198
+--------------rate = 0.1717171717171717
+diff = 53 totalA = 53 totalO = 202
+--------------rate = 0.2623762376237624
+diff = 431 totalA = 431 totalO = 206
+--------------rate = 2.092233009708738
+init time: 36911 ms
+execute time: 30551ms
