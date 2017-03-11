@@ -52,13 +52,13 @@ public class BaseVertex {
     public boolean equals(Object obj) {
         if (obj instanceof BaseVertex) {
             BaseVertex bv = (BaseVertex)obj;
-            return id == bv.id && round == bv.round;
+            return id == bv.id;
         }
         return false;
     }
 
-    @Override
-    public int hashCode() {
-        return new Integer(id + round).hashCode();
-    }
+//    @Override
+//    public int hashCode() {
+//        return new Integer(id + round).hashCode();
+//    }
 }

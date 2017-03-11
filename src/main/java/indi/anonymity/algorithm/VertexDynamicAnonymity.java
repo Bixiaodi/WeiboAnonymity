@@ -169,8 +169,7 @@ public class VertexDynamicAnonymity implements DynamicAnonymity<Vertex>, JGraph2
                 getAdjacentEdgeDec().put(i, differentEdge(graphs.get(i), graphs.get(i - 1)));
                 DirectedGraph<Vertex, DefaultEdge> supplementGraph = generateSupplementGraph(graphs.get(i), i);
                 // 执行匿名过程,迭代
-                !!!!!!!!!!!
-                ArrayList<DirectedGraph<Vertex, DefaultEdge>> anonymousGraphs = iteration(original, supplementGraph, i, k);
+                ArrayList<DirectedGraph<Vertex, DefaultEdge>> anonymousGraphs = iteration(cur, supplementGraph, i, k);
                 recordAnonymityResult(i, anonymousGraphs);
                 doExperiment(anonymousGraphs, i);
             }

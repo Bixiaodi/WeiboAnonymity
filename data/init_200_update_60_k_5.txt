@@ -1,0 +1,23 @@
+round 1
+diff = 23 totalA = 23 totalO = 200
+--------------rate = 0.115
+diff = 301 totalA = 301 totalO = 192
+--------------rate = 1.5677083333333333
+round 2
+diff = 23 totalA = 23 totalO = 200
+--------------rate = 0.115
+diff = 77 totalA = 77 totalO = 192
+--------------rate = 0.4010416666666667
+diff = 400 totalA = 400 totalO = 165
+--------------rate = 2.4242424242424243
+round 3
+diff = 23 totalA = 23 totalO = 200
+--------------rate = 0.115
+diff = 77 totalA = 77 totalO = 192
+--------------rate = 0.4010416666666667
+diff = 111 totalA = 111 totalO = 165
+--------------rate = 0.6727272727272727
+diff = 524 totalA = 524 totalO = 213
+--------------rate = 2.460093896713615
+init time: 24583 ms
+execute time: 37621ms

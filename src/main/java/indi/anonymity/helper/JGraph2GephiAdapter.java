@@ -1,5 +1,6 @@
 package indi.anonymity.helper;
 
+import indi.anonymity.elements.BaseVertex;
 import indi.anonymity.elements.Vertex;
 import org.gephi.graph.api.*;
 import org.gephi.project.api.ProjectController;
@@ -12,21 +13,21 @@ import java.util.HashSet;
 /**
  * Created by emily on 17/3/5.
  */
-public interface JGraph2GephiAdapter {
+public interface JGraph2GephiAdapter<T extends BaseVertex>{
 
-    default Graph transform(org.jgrapht.DirectedGraph<Vertex, DefaultEdge> g) {
+    default Graph transform(org.jgrapht.DirectedGraph<T, DefaultEdge> g) {
         ProjectController pc = Lookup.getDefault().lookup(ProjectController.class);
         pc.newProject();
         GraphModel graphModel = Lookup.getDefault().lookup(GraphController.class).getGraphModel();
         org.gephi.graph.api.DirectedGraph directedGraph = graphModel.getDirectedGraph();
-        HashMap<Vertex, Node> map = new HashMap<>();
-        HashSet<String> set = new HashSet<>();
-        for (Vertex v: g.vertexSet()) {
-            if (!set.contains(v.getUrlId())) {
-                Node node = graphModel.factory().newNode(v.getUrlId());
+        HashMap<T, Node> map = new HashMap<>();
+        HashSet<Integer> set = new HashSet<>();
+        for (T v: g.vertexSet()) {
+            if (!set.contains(v.getId()) && (g.inDegreeOf(v) + g.outDegreeOf(v) != 0) ) {
+                Node node = graphModel.factory().newNode(String.valueOf(v.getId()));
                 directedGraph.addNode(node);
                 map.put(v, node);
-                set.add(v.getUrlId());
+                set.add(v.getId());
             }
         }
         for (DefaultEdge e: g.edgeSet()) {
