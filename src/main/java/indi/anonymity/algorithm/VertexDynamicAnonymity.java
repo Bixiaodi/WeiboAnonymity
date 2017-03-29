@@ -100,7 +100,7 @@ public class VertexDynamicAnonymity implements DynamicAnonymity<Vertex>, JGraph2
     public ArrayList<DirectedGraph<Vertex, DefaultEdge>> iteration(DirectedGraph<Vertex, DefaultEdge> cur,
                                                                DirectedGraph<Vertex, DefaultEdge> supplementGraph,
                                                                int n,
-                                                               int k) {
+                                                               int k) throws IOException {
         ArrayList<Vertex> vertexes = new ArrayList<>(cur.vertexSet());
         ArrayList<ArrayList<Vertex>> group = new ArrayList<>();
         ArrayList<DirectedGraph<Vertex, DefaultEdge>> ret = new ArrayList<>();
@@ -136,12 +136,30 @@ public class VertexDynamicAnonymity implements DynamicAnonymity<Vertex>, JGraph2
             }
         }
 
+
         //deleteEdge is the edge in supplementGraph but not in cur
         //copy the supplementGraph and remove edge in {deleteEdge}
         DirectedGraph<Vertex, DefaultEdge> deleteEdge = differentEdge(supplementGraph, cur);
         DirectedGraph<Vertex, DefaultEdge> anonymousGraph = copyGraph(supplementGraph);
         anonymousGraph.removeAllEdges(deleteEdge.edgeSet());
         ret.add(anonymousGraph);
+
+        //how many vertex added
+        int added = 0;
+        double rate = 0.0;
+        for(int i = 0; i < group.size(); i++) {
+            if(group.get(i).size() < k) {
+                added++;
+            }
+        }
+        added += Math.abs(anonymousGraph.edgeSet().size() - cur.edgeSet().size());
+        rate = (added * 1.0 / (cur.edgeSet().size() + cur.vertexSet().size()));
+        System.out.println("added = " + added + " rate = " + (added * 1.0 / (cur.edgeSet().size() + cur.vertexSet().size())));
+        BufferedWriter output = new BufferedWriter(new FileWriter(dataFileName, true));
+        output.write("added = " + added + "\n");
+        output.write("rate =  " + rate + "\n");
+        output.close();
+
 
         for (int i = n; i > 0; i--) {
             DirectedGraph<Vertex, DefaultEdge> current = copyGraph(ret.get(ret.size() - 1));
@@ -171,10 +189,10 @@ public class VertexDynamicAnonymity implements DynamicAnonymity<Vertex>, JGraph2
                 // 执行匿名过程,迭代
                 ArrayList<DirectedGraph<Vertex, DefaultEdge>> anonymousGraphs = iteration(cur, supplementGraph, i, k);
                 recordAnonymityResult(i, anonymousGraphs);
-                doExperiment(anonymousGraphs, i);
+//                doExperiment(anonymousGraphs, i);
             }
         }
         recordOriginalGraph(graphs);
-        doExperiment(graphs, -1);
+ //       doExperiment(graphs, -1);
     }
 }

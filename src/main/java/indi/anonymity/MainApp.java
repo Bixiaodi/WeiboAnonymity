@@ -27,8 +27,9 @@ public class MainApp implements JGraph2GephiAdapter {
      */
 
     public void weibo(Connection connection) throws IOException {
-        int initCount = 100, updateCount = 3, round = 4, k = 2;
-        String fileName = "init_" + initCount + "_update_" + updateCount + "_k_" + k + ".txt";
+        int initCount = 200, updateCount = 60, round = 10, k = 2;
+        String path = "/Users/emily/百度云同步盘/毕设/实验结果/微博/匿名代价/";
+        String fileName = "init_" + initCount + "_update_" + updateCount + "_round_" + round + "_k_" + k + ".txt";
         long beginInit = System.currentTimeMillis();
         System.out.println("init count - " + initCount  + ", update count - " + updateCount);
         System.out.println("start init graph");
@@ -47,8 +48,10 @@ public class MainApp implements JGraph2GephiAdapter {
         System.out.println("execute time: " + (endExecute - beginExecute) + "ms");
     }
     public void email(Connection connection) throws IOException {
-        int initCount = 100, updateCount = 3, round = 4, k = 2, from = 0, to = 50000, costThreshold = 10, timeWindow = 20000;
-        String fileName = "from_" + from + "_to_" + to + "_costThreshold_" + costThreshold + "_timeWindow_" + timeWindow + "_k_" + k + ".txt";
+        int initCount = 100, updateCount = 3, round = 10, k = 2, from = 0, to = 86400;
+        int costThreshold = 100, timeWindow = 86400 * 2;
+        String path = "/Users/emily/百度云同步盘/毕设/实验结果/邮件/threshold/";
+        String fileName = "costThreshold_" + costThreshold + "_timeWindow_" + timeWindow + "_initRound_" + round + "_k_" + k + ".txt";
         long beginInit = System.currentTimeMillis();
         System.out.println("to = " + to + " costThreshold = " + costThreshold + " timeWindow = " + timeWindow);
         System.out.println("start init graph");
@@ -58,18 +61,18 @@ public class MainApp implements JGraph2GephiAdapter {
         System.out.println("end init graph");
         System.out.println("init time: " + (endInit - beginInit) + " ms");
         BaseVertexDynamicAnonymity baseDynamicAnonymity = new BaseVertexDynamicAnonymity(connection, round, updateCount,
-                fileName, from, to, costThreshold, timeWindow);
+                path + fileName, from, to, costThreshold, timeWindow);
 
         long beginExecute = System.currentTimeMillis();
         System.out.println("start execute graph");
         baseDynamicAnonymity.execute(originalGraph, k, round);
         long endExecute = System.currentTimeMillis();
         System.out.println("end execute graph");
-        System.out.println("execute time: " + (endExecute - beginExecute) + "ms");
+        System.out.println("execute time: " + (endExecute - beginExecute) + " ms");
 
-        BufferedWriter output = new BufferedWriter(new FileWriter(fileName, true));
+        BufferedWriter output = new BufferedWriter(new FileWriter(path + fileName, true));
         output.write("init time: " + (endInit - beginInit) + " ms\n");
-        output.write("execute time: " + (endExecute - beginExecute) + "ms\n");
+        output.write("execute time: " + (endExecute - beginExecute) + " ms\n");
         output.close();
     }
 
@@ -78,8 +81,8 @@ public class MainApp implements JGraph2GephiAdapter {
         connector.connect();
         Connection connection = connector.getConnection();
         MainApp mainApp = new MainApp();
- //       mainApp.weibo(connection);
-        mainApp.email(connection);
+        mainApp.weibo(connection);
+ //       mainApp.email(connection);
         connection.close();
     }
 

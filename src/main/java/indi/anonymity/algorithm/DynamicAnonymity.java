@@ -35,7 +35,7 @@ public interface DynamicAnonymity<T extends BaseVertex> {
     ArrayList<DirectedGraph<T, DefaultEdge>> iteration(DirectedGraph<T, DefaultEdge> cur,
                                                                     DirectedGraph<T, DefaultEdge> supplementGraph,
                                                                     int n,
-                                                                    int k);
+                                                                    int k) throws IOException;
     void execute(DirectedGraph<T, DefaultEdge> original, int k, int round) throws IOException;
 
     default void recordOriginalGraph(ArrayList<DirectedGraph<T, DefaultEdge>> graphs) throws FileNotFoundException {
